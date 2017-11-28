@@ -1,0 +1,163 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14780\viewh10580\viewkind0
+\deftab720
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0\fs28 \cf0 \expnd0\expndtw0\kerning0
+//SE CREAN LOS DIRECTORIOS DE LA REPLICACI\'d3N\
+// 1 PARA EL PRIMARY\
+// 1 PARA SECONDARY1 Y 1 PARA EL SEOCNDARY 2\
+mkdir -p \\srv\\mongodb\\rs1-P \\srv\\mongodb\\rs1-S1 \\srv\\mongodb\\rs1-S2\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+// SE LEVANTA UNA INSTANCIA DE MONGO EN EL PUERTO 27017 (DEFAULT) CON EL PATH DEL ARCHIVO\
+// LO IMPORTANTE ES EL REPLSET RS0, NOMBRE DE LA INSTANCIA\
+mongod --port 27020 --dbpath \\srv\\mongodb\\rs1-P --replSet rs1 --smallfiles --oplogSize 128\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+// puerto 27018 con su path\
+mongod --port 27021 --dbpath \\srv\\mongodb\\rs1-S1 --replSet rs1 --smallfiles --oplogSize 128\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+// puerto 27019 con su path\
+mongod --port 27022 --dbpath \\srv\\mongodb\\rs1-S2 --replSet rs1 --smallfiles --oplogSize 128\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+// iniciar shell en mongo primary 27017\
+mongo \'97-port 27017\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+/****************************************************************************************************************\
+rs.status()\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1 \cf0 El comando 
+\f0 rs.status()
+\f1  nos indica el estado actual del 
+\b replica set
+\b0 , en este caso podemos observar que en efecto a la instancia le ha sido indicada que debe trabajar como un 
+\b replica set
+\b0 ; sin embargo esta no ha sido iniciada y por eso no tiene asignada ninguna configuraci\'f3n (accesible con el comando 
+\f0 rs.config()
+\f1 ). 
+\f0 \
+*****************************************************************************************************************/\
+// ver estado de la realizaci\'f3n: a\'fan no se inicializa\
+// SOLO initiate el primario \
+> rs.status()\
+\{\
+        "info" : "run rs.initiate(...) if not yet done for the set",\
+        "ok" : 0,\
+        "errmsg" : "no replset config has been received",\
+        "code" : 94\
+\}\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+> rs.config()\
+2016-09-20T22:56:30.675-0600 E QUERY    [thread1] Error: Could not retrieve repl\
+ica set config: \{\
+        "info" : "run rs.initiate(...) if not yet done for the set",\
+        "ok" : 0,\
+        "errmsg" : "no replset config has been received",\
+        "code" : 94\
+\} :\
+rs.conf@src/mongo/shell/utils.js:1197:11\
+@(shell):1:1\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+/****************************************************************************************************************\
+rs.initiate()\
+
+\f1 Iniciemos el 
+\b replica set
+\b0  ejecutando el comando 
+\f0 rs.initiate()
+\f1 : \
+SOLO EN EL PRIMARY
+\f0 \
+****************************************************************************************************************/\
+> rs.initiate()\
+\{\
+        "info2" : "no configuration specified. Using a default configuration for\
+ the set",\
+        "me" : "gmadriz-vm:27017",\
+        "ok" : 1\
+\}\
+rs0:OTHER>\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+// con rs.status() se nota la configuraci\'f3n por defecto\
+// n\'f3tese que ya tiene un member, el PRIMARY\
+rs0:OTHER> rs.status()\
+\{\
+        "set" : "rs0",\
+        "date" : ISODate("2016-09-21T05:05:17.728Z"),\
+        "myState" : 1,\
+        "term" : NumberLong(1),\
+        "heartbeatIntervalMillis" : NumberLong(2000),\
+        "members" : [\
+                \{\
+                        "_id" : 0,\
+                        "name" : "gmadriz-vm:27017",\
+                        "health" : 1,\
+                        "state" : 1,\
+                        "stateStr" : "PRIMARY",\
+                        "uptime" : 857,\
+                        "optime" : \{\
+                                "ts" : Timestamp(1474434156, 1),\
+                                "t" : NumberLong(1)\
+                        \},\
+                        "optimeDate" : ISODate("2016-09-21T05:02:36Z"),\
+                        "electionTime" : Timestamp(1474434155, 2),\
+                        "electionDate" : ISODate("2016-09-21T05:02:35Z"),\
+                        "configVersion" : 1,\
+                        "self" : true\
+                \}\
+        ],\
+        "ok" : 1\
+\}\
+rs0:PRIMARY>\
+\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+//******************************************************************************\
+// rs.add()\
+// se agrega un secondary\
+//******************************************************************************\
+\
+rs0:PRIMARY> rs.add('gmadriz-vm:27018')\
+\{ "ok" : 1 \}\
+\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+rs.status() >> ahora son dos members\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+rs0:PRIMARY> rs.add('gmadriz-vm:27019')\
+\{ "ok" : 1 \}\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+rs.status() >> ahora son 3 members\
+\
+\
+//\'97\'97\'97\'97 O \'97\'97\'97\'97\'97\
+//******************************************************************************\
+// cree una BD newDB\
+// inserte algunos documentos en una colecci\'f3n cole1: db.cole1.insert(\{nombre:\'94 \'85 \'94\})\
+\
+// con un shell en la instancia 27018 y 27019 haga find de la cole1\
+// haga find en estas: qu\'e9 pasa?\
+\
+\
+// con robomongo (o similar) cree 3 conexiones y analice los datos\
+\
+\
+\
+Cd C:\\Program Files\\Mongo\\Server\\3.4\\bin\
+Dir\
+\
+\
+\
+http://codehero.co/mongodb-desde-cero-replicacion-parte-i/\
+http://codehero.co/mongodb-desde-cero-replicacion-parte-ii/\
+\
+}

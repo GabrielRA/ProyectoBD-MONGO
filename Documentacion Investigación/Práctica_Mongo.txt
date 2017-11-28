@@ -1,0 +1,81 @@
+DESCRIPCION
+Para cada ejercicio (1,2,3,4) se le ofrece un path de un portal que contiene una serie de sentencias que debe ejecutar 
+y verificar el comportamiento. 
+Antes de inicial el ejercicio, debe crear e insertar los documentos en las selecciones que se le indican. 
+
+-------------- O -----------------
+1. Crear documentos
+Path: http://www.notodocodigo.com/introduccion-a-mongodb/crear-documentos/ 
+
+OBJETIVO: insertar e importar datos.
+
+PARA EJERCICIO IMPORTAR
+Para importar, hacer un archivo productos.json con estos datos. Guardarlo donde está el mongo path o poner toda la ruta al importar
+
+{"id_produto" : 0, "tipo" : "libro", "precio" : 41.40 }
+{"id_produto" : 1, "tipo" : "revista", "precio" : 30.04 }
+{"id_produto" : 2, "tipo" : "libro", "precio" : 11.40 }
+{"id_produto" : 3, "tipo" : "cd", "precio" : 14.25 }
+{"id_produto" : 4, "tipo" : "libro", "precio" : 21.40 }
+{"id_produto" : 5, "tipo" : "audio", "precio" : 4.55 }
+
+
+-------------- O -----------------
+2. Búsquedas en mongoDB
+Path: http://www.notodocodigo.com/introduccion-a-mongodb/busquedas-en-mongodb/
+
+Para este ejercicio, debe hacer las siguientes colecciones e inserts
+
+pruebas:
+db.pruebas.insert({ "nombre" : "Juan", "direccion" : "C/ del olvido", "numero" : 33 })
+db.pruebas.insert({ "nombre" : "Raul", "direccion" : "C/ pepino" })
+
+cuenta:
+db.cuenta.insert({ "nombre" : "Pepe", "favoritos" : [ "helados", "pipas" ] } )
+db.cuenta.insert({ "nombre" : "Juan", "favoritos" : [ "pipas", "cacahuetes" ] } )
+db.cuenta.insert({ "nombre" : "Antonia", "favoritos" : [ "te", "pipas", "cacahuetes", "ron" ] } )
+db.cuenta.insert({ "nombre" : "Antonia2", "favoritos" : "cacahuetes" } )
+
+usuario:
+db.usuario.insert({nombre:"pepe", correo:{casa:"c@c.es", trabajo: "c@t.es"}}) 
+
+usu:
+db.usu.insert({ "_id" : 1, "nombre" : "Juan" })
+db.usu.insert({ "_id" : 2, "nombre" : "Pepe" })
+db.usu.insert({ "_id" : 3, "nombre" : "Andrés" })
+db.usu.insert({ "_id" : 4, "nombre" : "Juliana" })
+db.usu.insert({ "_id" : 5, "nombre" : "Ana" })
+db.usu.insert({ "_id" : 6, "nombre" : "AnaJana" })
+
+
+-------------- O -----------------
+3. Actualización de datos
+path: http://www.notodocodigo.com/introduccion-a-mongodb/actualizacion-de-datos/
+
+Utilizarán la colección usu, del ejercicio anterior.
+
+array:
+db.array.insert({ "_id" : 0, "a" : [ 1, 2, 3, 4 ] })
+
+
+
+-------------- O -----------------
+4. Eliminar datos
+path: http://www.notodocodigo.com/introduccion-a-mongodb/eliminar-datos/
+
+
+Utilizarán la colección usu, del ejercicio 2 y 3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
