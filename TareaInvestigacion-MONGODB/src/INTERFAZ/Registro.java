@@ -5,6 +5,7 @@
  */
 package INTERFAZ;
 
+import com.mongodb.BasicDBObject;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,7 +14,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-
+import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.db;
+import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.coleccion;
 /**
  *
  * @author M Express
@@ -41,7 +43,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtContraseña = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtImage = new javax.swing.JTextField();
@@ -49,6 +51,7 @@ public class Registro extends javax.swing.JFrame {
         chkFoto = new javax.swing.JCheckBox();
         chkCorreo = new javax.swing.JCheckBox();
         labelFoto = new javax.swing.JLabel();
+        btnFinalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +74,13 @@ public class Registro extends javax.swing.JFrame {
 
         chkCorreo.setText("Mostrar Correo");
 
+        btnFinalizar.setText("Finalizar");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +94,7 @@ public class Registro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(chkFoto)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
@@ -94,13 +104,15 @@ public class Registro extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCorreo)
-                            .addComponent(jTextField1)
+                            .addComponent(txtContraseña)
                             .addComponent(txtCodigo)
                             .addComponent(txtImage, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnImage, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnFinalizar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnImage, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(26, 26, 26))))
         );
         layout.setVerticalGroup(
@@ -115,7 +127,7 @@ public class Registro extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -132,9 +144,11 @@ public class Registro extends javax.swing.JFrame {
                         .addComponent(btnImage)))
                 .addGap(18, 18, 18)
                 .addComponent(chkFoto)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFinalizar)
+                .addGap(10, 10, 10)
                 .addComponent(chkCorreo)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,6 +178,26 @@ public class Registro extends javax.swing.JFrame {
             jPanel1.repaint();*/
         }
     }//GEN-LAST:event_btnImageActionPerformed
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        int foto = 0, correo = 0;
+        if(chkFoto.isSelected()){
+            foto = 1;
+        }
+        if(chkCorreo.isSelected()){
+            correo = 1;
+        }
+        coleccion = db.getCollection("aficionados");
+        BasicDBObject document = new BasicDBObject();
+        document.put("codigoAficionado","'" + txtCodigo.getText() + "'");
+        document.put("contrasenna","'" + txtContraseña.getText() + "'");
+        document.put("correo","'" + txtCorreo.getText() + "'");
+        document.put("imagen","'" + txtImage.getText() + "'");
+        document.put("mFoto","'" + foto + "'");
+        document.put("mCorreo","'" + correo + "'");
+        coleccion.insert(document);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,6 +235,7 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnImage;
     private javax.swing.JCheckBox chkCorreo;
     private javax.swing.JCheckBox chkFoto;
@@ -208,14 +243,11 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelFoto;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtImage;
     // End of variables declaration//GEN-END:variables
 
-    private JPanel add(ImageIcon imageIcon) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

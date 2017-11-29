@@ -19,11 +19,19 @@ import INTERFAZ.Inicio;
  * prueba
  */
 public class TareaInvestigacionMONGODB {
+    public static DB db;
+    public static DBCollection coleccion;
     /**
      * @param args the command line arguments
     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            Mongo mongo  = new Mongo("localhost", 27017);
+            db = mongo.getDB("investigacion");
+            //coleccion = db.getCollection("producto");
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TareaInvestigacionMONGODB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Inicio vIn = new Inicio();
         vIn.setVisible(true);
     }
