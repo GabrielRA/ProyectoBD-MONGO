@@ -11,6 +11,7 @@ import com.mongodb.Mongo;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import INTERFAZ.Inicio;
 
 /**
  *
@@ -23,6 +24,8 @@ public class TareaInvestigacionMONGODB {
     */
     public static void main(String[] args) {
         // TODO code application logic here
+        Inicio vIn = new Inicio();
+        vIn.setVisible(true);
     }
     
 }
