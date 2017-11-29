@@ -1,0 +1,6 @@
+use investigacion;
+
+/*cargar partidos (se hace desde el bin con una consola aparte)*/
+
+mongoimport -d investigacion -c partidos --drop < partidos.json
+

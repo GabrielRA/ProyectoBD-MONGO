@@ -12,7 +12,7 @@ OBJETIVO: insertar e importar datos.
 PARA EJERCICIO IMPORTAR
 Para importar, hacer un archivo productos.json con estos datos. Guardarlo donde está el mongo path o poner toda la ruta al importar
 
-{"id_produto" : 0, "tipo" : "libro", "precio" : 41.40 }
+
 {"id_produto" : 1, "tipo" : "revista", "precio" : 30.04 }
 {"id_produto" : 2, "tipo" : "libro", "precio" : 11.40 }
 {"id_produto" : 3, "tipo" : "cd", "precio" : 14.25 }
