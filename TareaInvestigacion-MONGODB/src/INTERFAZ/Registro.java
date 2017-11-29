@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.db;
 import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.coleccion;
@@ -197,6 +198,11 @@ public class Registro extends javax.swing.JFrame {
         document.put("mCorreo","'" + correo + "'");
         coleccion.insert(document);
         // TODO add your handling code here:
+  
+        JOptionPane.showMessageDialog(null, "Se realizo con exito la operacion");
+        Inicio ini = new Inicio(); 
+        ini.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**
