@@ -85,6 +85,11 @@ public class CrearAficionado extends javax.swing.JFrame {
         jLabel3.setText("Correo");
 
         jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Crear Aficionado");
 
@@ -228,6 +233,13 @@ public class CrearAficionado extends javax.swing.JFrame {
         ini.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Inicio ini = new Inicio();
+        ini.setVisible(true);
+        this.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
