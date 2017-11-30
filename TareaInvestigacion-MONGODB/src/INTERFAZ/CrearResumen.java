@@ -181,12 +181,11 @@ public class CrearResumen extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        coleccion = db.getCollection("aficionados");
+        coleccion = db.getCollection("Resumen");
         BasicDBObject document = new BasicDBObject();
         document.put("Numero Partido","'" + txtNumPartido.getText() + "'");
         document.put("Resumen","'" + jTextArea1.getText() + "'");
         document.put("Videos","'" + jTextArea2.getText() + "'");
-
         coleccion.insert(document);
     }//GEN-LAST:event_jButton3ActionPerformed
 
