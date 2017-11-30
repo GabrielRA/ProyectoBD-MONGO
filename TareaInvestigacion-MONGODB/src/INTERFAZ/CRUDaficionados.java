@@ -5,11 +5,14 @@
  */
 package INTERFAZ;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author M Express
  */
 public class CRUDaficionados extends javax.swing.JFrame {
+    public static String codigoUsuario;
 
     /**
      * Creates new form CRUDaficionados
@@ -28,7 +31,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableAficionado = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -39,7 +42,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableAficionado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -55,7 +58,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableAficionado);
 
         jButton1.setText("Crear Aficionado");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +75,11 @@ public class CRUDaficionados extends javax.swing.JFrame {
         });
 
         jButton3.setText("Borrar Aficionado");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Ver foto");
 
@@ -142,11 +150,26 @@ public class CRUDaficionados extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ModificarAficionado MAfi = new ModificarAficionado();
-        MAfi.setVisible(true);
-        this.setVisible(false);
+        int filasSeleccionadas = tableAficionado.getSelectedRow();
+        if(filasSeleccionadas == -1){
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
+        }else{
+            int row = tableAficionado.getSelectedRow();
+            codigoUsuario = tableAficionado.getValueAt(row, 0).toString();
+            ModificarAficionado MAfi = new ModificarAficionado();
+            MAfi.setVisible(true);
+            this.setVisible(false);
+        }
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //BoAficionado MAfi = new ModificarAficionado();
+        //MAfi.setVisible(true);
+        //this.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +214,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTable tableAficionado;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,8 @@
  */
 package INTERFAZ;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -212,13 +214,19 @@ public class ModificarAficionado extends javax.swing.JFrame {
         }
         coleccion = db.getCollection("aficionados");
         BasicDBObject document = new BasicDBObject();
-        document.put("codigoAficionado","'" + txtCodigo.getText() + "'");
-        document.put("contrasenna","'" + txtContraseña.getText() + "'");
-        document.put("correo","'" + txtCorreo.getText() + "'");
-        document.put("imagen","'" + txtImage.getText() + "'");
-        document.put("mFoto","'" + foto + "'");
-        document.put("mCorreo","'" + correo + "'");
-        coleccion.insert(document);
+        document.put("codigoAficionado","'" + CRUDaficionados.codigoUsuario + "'");
+        DBCursor docCursor = coleccion.find(document);
+        if(docCursor.hasNext()) {
+            DBObject newDoc = docCursor.next();
+            newDoc.put("codigoAficionado","'" + txtCodigo.getText() + "'");
+            newDoc.put("contrasenna","'" + txtContraseña.getText() + "'");
+            newDoc.put("correo","'" + txtCorreo.getText() + "'");
+            newDoc.put("imagen","'" + txtImage.getText() + "'");
+            newDoc.put("mFoto","'" + foto + "'");
+            newDoc.put("mCorreo","'" + correo + "'");
+            coleccion.save(newDoc);
+        }
+
         // TODO add your handling code here:
 
         JOptionPane.showMessageDialog(null, "Se realizo con exito la operacion");

@@ -229,14 +229,14 @@ public class CrearAficionado extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         JOptionPane.showMessageDialog(null, "Se realizo con exito la operacion");
-        Inicio ini = new Inicio();
-        ini.setVisible(true);
+        CRUDaficionados CrudAfi = new CRUDaficionados();
+        CrudAfi.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Inicio ini = new Inicio();
-        ini.setVisible(true);
+        CRUDaficionados CrudAfi = new CRUDaficionados();
+        CrudAfi.setVisible(true);
         this.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
