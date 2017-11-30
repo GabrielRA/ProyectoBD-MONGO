@@ -10,12 +10,21 @@ package INTERFAZ;
  * @author M Express
  */
 public class MenuAdmin extends javax.swing.JFrame {
-
+    
+    String usuario;
     /**
      * Creates new form MenuAdmin
      */
     public MenuAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
+    }
+    
+    public MenuAdmin(String user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
     }
 
     /**

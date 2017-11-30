@@ -114,9 +114,17 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        SeleccionarPartido selecP = new SeleccionarPartido(txtCodigo.getText());
-        selecP.setVisible(true);
-        this.setVisible(false);
+        if(txtCodigo.getText()=="admin"){
+            MenuAdmin mAdm = new MenuAdmin();
+            mAdm.setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            SeleccionarPartido selecP = new SeleccionarPartido(txtCodigo.getText());
+            selecP.setVisible(true);
+            this.setVisible(false);
+        }
+        
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
