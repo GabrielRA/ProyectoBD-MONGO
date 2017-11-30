@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -87,6 +89,11 @@ public class CrearResumen extends javax.swing.JFrame {
         jButton2.setText("Regresar");
 
         jButton3.setText("Crear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,25 +168,27 @@ public class CrearResumen extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        coleccion = db.getCollection("aficionados");
+        
         JFileChooser archivo = new JFileChooser();
         int ventana =  archivo.showOpenDialog(null);
         if(ventana == JFileChooser.APPROVE_OPTION)
         {
-            /*https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel*/
+            
             File image = archivo.getSelectedFile();
-            //txtImage.setText(String.valueOf(file));
-            
-            
-            //Image dimg = getToolkit().getImage(txtImage.getText());
-            //dimg = dimg.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_DEFAULT);
-           // labelFoto.setIcon(new ImageIcon(dimg));
-            
-            /*Imagen Imagen = new Imagen(txtImage.getText());
-            jPanel1.add(Imagen);
-            jPanel1.repaint();*/
+            jTextArea2.setText(String.valueOf(image));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        coleccion = db.getCollection("aficionados");
+        BasicDBObject document = new BasicDBObject();
+        document.put("Numero Partido","'" + txtNumPartido.getText() + "'");
+        document.put("Resumen","'" + jTextArea1.getText() + "'");
+        document.put("Videos","'" + jTextArea2.getText() + "'");
+
+        coleccion.insert(document);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
