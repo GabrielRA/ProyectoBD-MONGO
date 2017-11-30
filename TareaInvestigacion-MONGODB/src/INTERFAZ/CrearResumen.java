@@ -5,6 +5,14 @@
  */
 package INTERFAZ;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author M Express
@@ -62,6 +70,11 @@ public class CrearResumen extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea2);
 
         jButton1.setText("Cargar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Regresar");
 
@@ -138,6 +151,32 @@ public class CrearResumen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+                JFileChooser archivo = new JFileChooser();
+        int ventana =  archivo.showOpenDialog(null);
+        if(ventana == JFileChooser.APPROVE_OPTION)
+        {
+            /*https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel*/
+            File file = archivo.getSelectedFile();
+            txtImage.setText(String.valueOf(file));
+            
+            BufferedImage img = null;
+                try {
+                    img = ImageIO.read(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            Image dimg = getToolkit().getImage(txtImage.getText());
+            dimg = dimg.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_DEFAULT);
+            labelFoto.setIcon(new ImageIcon(dimg));
+            
+            /*Imagen Imagen = new Imagen(txtImage.getText());
+            jPanel1.add(Imagen);
+            jPanel1.repaint();*/
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,6 +210,19 @@ public class CrearResumen extends javax.swing.JFrame {
                 new CrearResumen().setVisible(true);
             }
         });
+    }
+    public void addImage(Image image, String imageName) throws UnknownHostException, IOException{
+        GridFS gfsImageCollection = new GridFS(Conexion.getDB(), "image");
+        GridFSInputFile gfsFile = gfsImageCollection.createFile(image);
+        gfsFile.setFilename(imageName);
+        gfsFile.save();
+    }
+    
+    public Image getImage(String imageName) throws UnknownHostException, IOException, FileExtensionException{
+        GridFS gfsImageCollection = new GridFS(Conexion.getDB(), "image");
+        GridFSDBFile gridFSImage = gfsImageCollection.findOne(imageName);
+        gridFSImage.writeTo("temp\\"+imageName+".jpg");
+        return new Image("temp\\"+imageName+".jpg");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
