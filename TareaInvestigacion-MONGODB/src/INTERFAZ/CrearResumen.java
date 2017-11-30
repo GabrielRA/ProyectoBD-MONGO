@@ -10,6 +10,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
 import com.mongodb.BasicDBObject;
 import com.sun.media.jfxmedia.control.VideoDataBuffer;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -181,11 +182,12 @@ public class CrearResumen extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        coleccion = db.getCollection("Resumen");
+        coleccion = db.getCollection("resumen");
         BasicDBObject document = new BasicDBObject();
-        document.put("Numero Partido","'" + txtNumPartido.getText() + "'");
-        document.put("Resumen","'" + jTextArea1.getText() + "'");
-        document.put("Videos","'" + jTextArea2.getText() + "'");
+        
+        document.put("Numero Partido", txtNumPartido.getText());
+        document.put("Resumen",jTextArea1.getText());
+        document.put("Videos",jTextArea2.getText());
         coleccion.insert(document);
     }//GEN-LAST:event_jButton3ActionPerformed
 
