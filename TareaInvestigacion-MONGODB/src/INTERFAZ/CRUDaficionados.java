@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
  * @author M Express
  */
 public class CRUDaficionados extends javax.swing.JFrame {
+    public static String cod;
     String codigoUsuario;
 
     /**
@@ -158,13 +159,15 @@ public class CRUDaficionados extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int filasSeleccionadas = tableAficionado.getSelectedRow();
         if(filasSeleccionadas == -1){
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
-        }else{
-            int row = tableAficionado.getSelectedRow();
-            codigoUsuario = tableAficionado.getValueAt(row, 0).toString();
+            //int row = tableAficionado.getSelectedRow();
+            cod = "A2500";
+            //codigoUsuario = tableAficionado.getValueAt(row, 0).toString();
             ModificarAficionado MAfi = new ModificarAficionado(this.codigoUsuario);
             MAfi.setVisible(true);
             this.setVisible(false);
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna fila");
         }
         
         // TODO add your handling code here:

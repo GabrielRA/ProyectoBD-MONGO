@@ -198,12 +198,12 @@ public class Registro extends javax.swing.JFrame {
         }
         coleccion = db.getCollection("aficionados");
         BasicDBObject document = new BasicDBObject();
-        document.put("codigoAficionado","'" + txtCodigo.getText() + "'");
-        document.put("contrasenna","'" + txtContraseña.getText() + "'");
-        document.put("correo","'" + txtCorreo.getText() + "'");
-        document.put("imagen","'" + txtImage.getText() + "'");
-        document.put("mFoto","'" + foto + "'");
-        document.put("mCorreo","'" + correo + "'");
+        document.put("codigoAficionado", txtCodigo.getText());
+        document.put("contrasenna", txtContraseña.getText());
+        document.put("correo", txtCorreo.getText());
+        document.put("imagen", txtImage.getText());
+        document.put("mFoto", foto);
+        document.put("mCorreo", correo);
         coleccion.insert(document);
         // TODO add your handling code here:
   

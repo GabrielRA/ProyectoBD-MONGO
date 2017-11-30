@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package INTERFAZ;
+import static INTERFAZ.CRUDaficionados.cod;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -229,16 +230,16 @@ public class ModificarAficionado extends javax.swing.JFrame {
         }
         coleccion = db.getCollection("aficionados");
         BasicDBObject document = new BasicDBObject();
-        document.put("codigoAficionado","'" + this.usuario + "'");
+        document.put("codigoAficionado", cod);
         DBCursor docCursor = coleccion.find(document);
         if(docCursor.hasNext()) {
             DBObject newDoc = docCursor.next();
-            newDoc.put("codigoAficionado","'" + txtCodigo.getText() + "'");
-            newDoc.put("contrasenna","'" + txtContraseña.getText() + "'");
-            newDoc.put("correo","'" + txtCorreo.getText() + "'");
-            newDoc.put("imagen","'" + txtImage.getText() + "'");
-            newDoc.put("mFoto","'" + foto + "'");
-            newDoc.put("mCorreo","'" + correo + "'");
+            newDoc.put("codigoAficionado", txtCodigo.getText());
+            newDoc.put("contrasenna", txtContraseña.getText());
+            newDoc.put("correo", txtCorreo.getText());
+            newDoc.put("imagen", txtImage.getText());
+            newDoc.put("mFoto", foto);
+            newDoc.put("mCorreo", correo);
             coleccion.save(newDoc);
         }
 

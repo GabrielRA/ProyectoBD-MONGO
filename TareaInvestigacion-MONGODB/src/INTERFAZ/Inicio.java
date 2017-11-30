@@ -114,7 +114,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        if(txtCodigo.getText()=="admin"){
+        if(txtCodigo.getText().equals("admin")){
             MenuAdmin mAdm = new MenuAdmin();
             mAdm.setVisible(true);
             this.setVisible(false);
