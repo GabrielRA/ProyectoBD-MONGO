@@ -22,12 +22,21 @@ import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.db;
  * @author M Express
  */
 public class ModificarAficionado extends javax.swing.JFrame {
-
+    String usuario;
+    String codigoAficionado;
     /**
      * Creates new form ModificarAficionado
      */
     public ModificarAficionado() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public ModificarAficionado(String user, String aficionado) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
+        this.codigoAficionado = codigoAficionado;
     }
 
     /**

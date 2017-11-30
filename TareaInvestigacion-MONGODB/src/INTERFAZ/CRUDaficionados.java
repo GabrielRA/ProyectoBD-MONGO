@@ -12,15 +12,21 @@ import javax.swing.JOptionPane;
  * @author M Express
  */
 public class CRUDaficionados extends javax.swing.JFrame {
-    public static String codigoUsuario;
+    String codigoUsuario;
 
     /**
      * Creates new form CRUDaficionados
      */
     public CRUDaficionados() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
-
+    
+    public CRUDaficionados(String user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.codigoUsuario = user;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

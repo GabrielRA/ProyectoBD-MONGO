@@ -10,12 +10,20 @@ package INTERFAZ;
  * @author M Express
  */
 public class CRUDresumen extends javax.swing.JFrame {
-
+    
+    String usuario;
     /**
      * Creates new form CRUDresumen
      */
     public CRUDresumen() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+
+    public CRUDresumen(String user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
     }
 
     /**
