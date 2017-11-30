@@ -36,7 +36,13 @@ public class ModificarAficionado extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.usuario = user;
-        this.codigoAficionado = codigoAficionado;
+        this.codigoAficionado = aficionado;
+    }
+    
+    public ModificarAficionado(String user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
     }
 
     /**
@@ -223,7 +229,7 @@ public class ModificarAficionado extends javax.swing.JFrame {
         }
         coleccion = db.getCollection("aficionados");
         BasicDBObject document = new BasicDBObject();
-        document.put("codigoAficionado","'" + CRUDaficionados.codigoUsuario + "'");
+        document.put("codigoAficionado","'" + this.usuario + "'");
         DBCursor docCursor = coleccion.find(document);
         if(docCursor.hasNext()) {
             DBObject newDoc = docCursor.next();

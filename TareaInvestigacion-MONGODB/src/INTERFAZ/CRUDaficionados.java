@@ -162,7 +162,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
         }else{
             int row = tableAficionado.getSelectedRow();
             codigoUsuario = tableAficionado.getValueAt(row, 0).toString();
-            ModificarAficionado MAfi = new ModificarAficionado();
+            ModificarAficionado MAfi = new ModificarAficionado(this.codigoUsuario);
             MAfi.setVisible(true);
             this.setVisible(false);
         }
