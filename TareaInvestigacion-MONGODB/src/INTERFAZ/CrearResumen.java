@@ -5,13 +5,21 @@
  */
 package INTERFAZ;
 
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSInputFile;
+import com.mongodb.BasicDBObject;
+import com.sun.media.jfxmedia.control.VideoDataBuffer;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.UnknownHostException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.coleccion;
+import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.db;
 
 /**
  *
@@ -153,23 +161,19 @@ public class CrearResumen extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-                JFileChooser archivo = new JFileChooser();
+        coleccion = db.getCollection("aficionados");
+        JFileChooser archivo = new JFileChooser();
         int ventana =  archivo.showOpenDialog(null);
         if(ventana == JFileChooser.APPROVE_OPTION)
         {
             /*https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel*/
-            File file = archivo.getSelectedFile();
-            txtImage.setText(String.valueOf(file));
+            File image = archivo.getSelectedFile();
+            //txtImage.setText(String.valueOf(file));
             
-            BufferedImage img = null;
-                try {
-                    img = ImageIO.read(file);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            Image dimg = getToolkit().getImage(txtImage.getText());
-            dimg = dimg.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_DEFAULT);
-            labelFoto.setIcon(new ImageIcon(dimg));
+            
+            //Image dimg = getToolkit().getImage(txtImage.getText());
+            //dimg = dimg.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_DEFAULT);
+           // labelFoto.setIcon(new ImageIcon(dimg));
             
             /*Imagen Imagen = new Imagen(txtImage.getText());
             jPanel1.add(Imagen);
@@ -211,18 +215,18 @@ public class CrearResumen extends javax.swing.JFrame {
             }
         });
     }
-    public void addImage(Image image, String imageName) throws UnknownHostException, IOException{
-        GridFS gfsImageCollection = new GridFS(Conexion.getDB(), "image");
+    public void addImage(File image, String imageName) throws UnknownHostException, IOException{
+        GridFS gfsImageCollection = new GridFS(coleccion.getDB(), "image");
         GridFSInputFile gfsFile = gfsImageCollection.createFile(image);
         gfsFile.setFilename(imageName);
         gfsFile.save();
     }
     
-    public Image getImage(String imageName) throws UnknownHostException, IOException, FileExtensionException{
-        GridFS gfsImageCollection = new GridFS(Conexion.getDB(), "image");
+    public File getImage(String imageName) throws UnknownHostException, IOException{
+        GridFS gfsImageCollection = new GridFS(coleccion.getDB(), "image");
         GridFSDBFile gridFSImage = gfsImageCollection.findOne(imageName);
         gridFSImage.writeTo("temp\\"+imageName+".jpg");
-        return new Image("temp\\"+imageName+".jpg");
+        return new File("temp\\"+imageName+".jpg");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
