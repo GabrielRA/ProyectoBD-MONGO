@@ -246,7 +246,7 @@ public class ModificarAficionado extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         JOptionPane.showMessageDialog(null, "Se realizo con exito la operacion");
-        Inicio ini = new Inicio();
+        CRUDaficionados ini = new CRUDaficionados(this.codigoAficionado);
         ini.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnFinalizarActionPerformed

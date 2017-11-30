@@ -10,12 +10,26 @@ package INTERFAZ;
  * @author M Express
  */
 public class CrearReplay extends javax.swing.JFrame {
-
+    String usuario;
+    int numPartido;
+    String comentario;
     /**
      * Creates new form CrearReplay
      */
     public CrearReplay() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public CrearReplay(String user, int nPart, String com) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
+        this.numPartido = nPart;
+        this.comentario = com;
+        this.lblComentario.setText(com);
+        this.lblNumPartido.setText(nPart+"");
+        this.lblUsuario.setText(user);
     }
 
     /**
@@ -44,6 +58,11 @@ public class CrearReplay extends javax.swing.JFrame {
         lblUsuario.setText("Usuario");
 
         jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Crear Replay");
 
@@ -125,6 +144,12 @@ public class CrearReplay extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CRUDreplay cRep = new CRUDreplay(this.usuario,this.numPartido,"");
+        cRep.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

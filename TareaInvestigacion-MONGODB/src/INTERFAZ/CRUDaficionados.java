@@ -5,6 +5,13 @@
  */
 package INTERFAZ;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,11 +21,13 @@ import javax.swing.JOptionPane;
 public class CRUDaficionados extends javax.swing.JFrame {
     public static String cod;
     String codigoUsuario;
+    DB db;
+    DBCollection tabla;
 
     /**
      * Creates new form CRUDaficionados
      */
-    public CRUDaficionados() {
+    public CRUDaficionados(){
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -27,6 +36,13 @@ public class CRUDaficionados extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.codigoUsuario = user;
+    }
+    
+    public void cargarDatos(){
+        DBCursor cursor = tabla.find();
+        while(cursor.hasNext()){
+            //tableAficionado.setText(cursor.);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,6 +109,11 @@ public class CRUDaficionados extends javax.swing.JFrame {
         lblUsuario.setText("Usuario");
 
         jButton5.setText("Regresar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("CRUD Aficionados");
 
@@ -150,7 +171,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CrearAficionado CAfi = new CrearAficionado();
+        CrearAficionado CAfi = new CrearAficionado(this.codigoUsuario);
         CAfi.setVisible(true);
         this.setVisible(false);
         // TODO add your handling code here:
@@ -179,6 +200,12 @@ public class CRUDaficionados extends javax.swing.JFrame {
         //this.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MenuAdmin mAd = new MenuAdmin(this.codigoUsuario);
+        mAd.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,6 +238,7 @@ public class CRUDaficionados extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CRUDaficionados().setVisible(true);
+                
             }
         });
     }

@@ -11,11 +11,20 @@ package INTERFAZ;
  */
 public class ActualizarResumen extends javax.swing.JFrame {
 
+    
+    String usuario;
     /**
      * Creates new form ActualizarResumen
      */
     public ActualizarResumen() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public ActualizarResumen(String user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
     }
 
     /**
@@ -64,6 +73,11 @@ public class ActualizarResumen extends javax.swing.JFrame {
         jLabel5.setText("Videos");
 
         jButton2.setText("Regresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Actualizar");
 
@@ -137,6 +151,12 @@ public class ActualizarResumen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CRUDresumen cRes = new CRUDresumen(this.usuario);
+        cRes.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

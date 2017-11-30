@@ -10,12 +10,23 @@ package INTERFAZ;
  * @author M Express
  */
 public class CRUDreplay extends javax.swing.JFrame {
-
+    String usuario;
+    String comentario;
+    int numPartido;
     /**
      * Creates new form CRUDreplay
      */
     public CRUDreplay() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public CRUDreplay(String user, int nPartido, String comen) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.usuario = user;
+        this.comentario = comen;
+        this.numPartido = nPartido;
     }
 
     /**
@@ -44,6 +55,11 @@ public class CRUDreplay extends javax.swing.JFrame {
         lblUsuario.setText("Usuario");
 
         jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Numero Partido");
 
@@ -64,6 +80,11 @@ public class CRUDreplay extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Crear Replay");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Actualizar Replay");
 
@@ -129,6 +150,18 @@ public class CRUDreplay extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CRUDcomentarios cCom = new CRUDcomentarios(this.numPartido,this.usuario);
+        cCom.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CrearReplay cCom = new CrearReplay(this.usuario,this.numPartido,"");
+        cCom.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

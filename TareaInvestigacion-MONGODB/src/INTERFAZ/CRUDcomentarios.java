@@ -98,6 +98,11 @@ public class CRUDcomentarios extends javax.swing.JFrame {
         jButton2.setText("Eliminar Comentario");
 
         jButton4.setText("Ver Replay");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Regresar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +194,12 @@ public class CRUDcomentarios extends javax.swing.JFrame {
         ccom.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        CRUDreplay cRep = new CRUDreplay(this.codUsuario,this.numPartido,"");
+        cRep.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -10,6 +10,9 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -23,12 +26,21 @@ import static tareainvestigacion.mongodb.TareaInvestigacionMONGODB.db;
  */
 public class CrearAficionado extends javax.swing.JFrame {
 
+    String usuario;
     /**
      * Creates new form CrearAficionado
      */
     public CrearAficionado() {
         initComponents();
+        this.setVisible(true);
     }
+    
+    public CrearAficionado(String user) {
+        initComponents();
+        this.setVisible(true);
+        this.usuario = user;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,15 +241,19 @@ public class CrearAficionado extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         JOptionPane.showMessageDialog(null, "Se realizo con exito la operacion");
-        CRUDaficionados CrudAfi = new CRUDaficionados();
+        CRUDaficionados CrudAfi;
+        CrudAfi = new CRUDaficionados(this.usuario);
         CrudAfi.setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CRUDaficionados CrudAfi = new CRUDaficionados();
+        CRUDaficionados CrudAfi;
+        CrudAfi = new CRUDaficionados(this.usuario);
         CrudAfi.setVisible(true);
         this.setVisible(false);
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
